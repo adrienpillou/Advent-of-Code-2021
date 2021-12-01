@@ -14,12 +14,13 @@ measurements = [int(i) for i in x]
 
 for i, m in enumerate(measurements):
     if(i>len(measurements)-3):continue
-    cleaned_measurements.append(measurements[i] + measurements[i+1] + measurements[i+2])
+    cleaned_measurements.append(sum(measurements[i:i+3]))
+
 
 for i in range(1, len(cleaned_measurements)):
     if(i<1):continue
     delta = cleaned_measurements[i] - cleaned_measurements[i-1]
     if(delta>0):
         increased_count += 1
-        
+
 print(increased_count)
