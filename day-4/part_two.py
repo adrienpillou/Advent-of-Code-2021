@@ -5,6 +5,7 @@
 import numpy as np
 
 def detect_row(board) -> bool:
+    """Check if the board has one complete row"""
     for j in range(5):
         row = board[j,:]
         if(not 0 in row):
@@ -12,6 +13,7 @@ def detect_row(board) -> bool:
     return False
 
 def detect_column(board) -> bool:
+    """Check if the board has one complete column"""
     for i in range(5):
         column = board[:,i]
         if(not 0 in column):
@@ -19,19 +21,15 @@ def detect_column(board) -> bool:
     return False
 
 def is_board_winning(board) -> bool:
+    """Check if a board is winning (at least one complete row or column)"""
     if(detect_column(board)):
         return True
     if (detect_row(board)):
         return True
     return False
 
-def get_winning_board(boards) -> int:
-    for i in range(len(boards)):
-        if(detect_row(boards[i]) or detect_column(boards[i])):
-            return i
-    return -1
-
 def calculate_board_score(board, marked_board) -> int:
+    """Calculate the board score using the remaining values"""
     buffer = board.copy()
     for j in range(board.shape[0]):
         for i in range(board.shape[1]):
@@ -40,12 +38,14 @@ def calculate_board_score(board, marked_board) -> int:
     return buffer.sum()
 
 def board_already_won(winning_boards, board_index) -> bool:
+    """Check if a board is already in the winning boards list"""
     for l in winning_boards:
         if(l[0] == board_index):
             return True
     return False
 
 def get_bingo_sequence():
+    """Read the first line from the input file"""
     with open("input.txt","r") as file:
         sequence = file.readline()
 
@@ -84,6 +84,7 @@ shape = (5, 5)
 for i in range(len(boards)):
     marked_boards.append(np.zeros(shape, int))
 
+# Winning boards list ([board index, turn when win happens])
 winning_boards = []
 
 for turn, n in enumerate(sequence):
@@ -102,18 +103,18 @@ for turn, n in enumerate(sequence):
         elif(is_board_winning(m)):
             winning_boards.append([c, turn])
 
+# Reverse sort winning boards list using turn as a sorting key
 k = lambda x:x[1]
 winning_boards.sort(key=k, reverse=True)
 
 last_winning_board = winning_boards[0]
 last_winning_board_index = last_winning_board[0]
+turn = last_winning_board[1]
 
 score = calculate_board_score(
     boards[last_winning_board_index],
     marked_boards[last_winning_board_index]
 )
-
-turn = last_winning_board[1]
 
 print(score * sequence[turn])
 
