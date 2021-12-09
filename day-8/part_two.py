@@ -1,6 +1,6 @@
 #PART TWO: https://adventofcode.com/2021/day/8
 #DATE: 08/12/2021
-#ANSWER: 
+#ANSWER: 974512
 
 from itertools import permutations
 
