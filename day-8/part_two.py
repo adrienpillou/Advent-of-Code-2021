@@ -70,6 +70,7 @@ for n, line in enumerate(signals):
 
         if combination_is_valid:
             valid_combinations[n] = combination
+            break
 
 output_values = []
 for l, line in enumerate(values):
