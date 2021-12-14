@@ -1,6 +1,6 @@
 #PART TWO: https://adventofcode.com/2021/day/14
 #DATE: 14/12/2021
-#ANSWER: 
+#ANSWER: 4110215602456
 
 from collections import defaultdict
 from copy import copy
